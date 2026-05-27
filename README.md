@@ -54,8 +54,66 @@ flowchart TD
     F --> G[Generate Digital Forensic Report]
 ```
 
+**A.Capturing Traffic in Wireshark**
+
++ Open Wireshark and start capturing on the active interface (Wi- Fi/Ethernet).
+
+<img width="1920" height="1080" alt="Screenshot (416)" src="https://github.com/user-attachments/assets/007f869c-20aa-408f-ab04-6523d1d9c1f2" />
+
+
+
+
+* Perform activities like opening a website or sending an email through a client (e.g., Gmail via browser or Thunderbird).
+
+<img width="1920" height="1200" alt="Screenshot (68)" src="https://github.com/user-attachments/assets/782d78cd-a198-496d-80ed-85ddf59bfddc" />
+
+
+
+
+**B. Analyzing Web Browser Artifacts**
+
+
+* Apply filters like: http, tcp.port == 443 (for HTTPS), or dns to isolate browser traffic.
+
+<img width="1920" height="1080" alt="Screenshot (418)" src="https://github.com/user-attachments/assets/5818d169-6e3d-4c2a-8c9d-06365a2208c6" />
+
+* Inspect HTTP GET/POST requests: 
+  - Look for URLs, hostnames, user agents, and cookies in the HTTP headers.
+  - Follow TCP Stream to reconstruct page request flow: Right-click a packet → Follow → TCP Stream.
+  - Filter: dns o Reveal domains the browser tried to resolve.
+
+<img width="1920" height="1080" alt="Screenshot (420)" src="https://github.com/user-attachments/assets/d69b8074-dcde-470d-85c6-ff7f87aee780" />
+
+**C. Email Header Analysis**
+
+* Apply relevant filters: 
+  - For POP3: tcp.port == 110 o For SMTP: tcp.port == 25 or 587 o For IMAP: tcp.port == 143 or 993
+
+<img width="1920" height="1080" alt="Screenshot (421)" src="https://github.com/user-attachments/assets/fbd91315-4065-4d0c-a08f-93ce4f65c3e3" />
+
+* Locate email data: 
+  - Look for SMTP packets to see sender/receiver email addresses.
+  - Use "Follow TCP Stream" to view the full email headers and body if unencrypted.
+
+<img width="1920" height="1080" alt="Screenshot (422)" src="https://github.com/user-attachments/assets/0e2af997-e837-437b-b80b-345822d74e8a" />
+
+* Extract Email Header Fields:
+  - Analyze From, To, Subject, Date, Message-ID, and relay servers used in sending the email.
+
+<img width="1920" height="1080" alt="Screenshot (423)" src="https://github.com/user-attachments/assets/81ed1cf6-2f6c-4821-99f5-5e32864f1fb2" />
+
+
+
+
+
 ## OUTPUT:
 Captured Web Activity and Email Header Information
+
+<img width="1920" height="1080" alt="Screenshot (420)" src="https://github.com/user-attachments/assets/754d8d36-b429-4748-9c99-daa5fde2a559" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/33493c33-7c18-4f75-9384-78f7b1decae3" />
+
+
 
 ## RESULT:
 Web browser artifacts and email headers were successfully analyzed using Wireshark.
